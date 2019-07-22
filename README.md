@@ -1,24 +1,15 @@
 
 
+python 3.6.8
+mysql 5.7.26
 
+### Run project
+pip3 install -r requirement.txt
 
-### Setup project
-#### Required
-- Os: Windows or Linux
-- Docker
-- Docker-compose
+Tao Database dbw301 trong workbench
 
-#### Start app for development
-- Copy .env.example => .env
-- Edit mapping port, or environment if need
-- Run `docker-compose up`
-- Open http://localhost:{APP_PORT}/api . Enjoy!
+flask db init
+flask db migrate
+flask db upgrade
 
-#### Deployment
-- Copy .env.example => .env
-- Edit mapping port, or environment if need
-- Copy docker-compose.override.sample.yml => docker-compose.override.yml
-- Run `docker-compose up`
-
-
-### Testing
+python3 main.py
