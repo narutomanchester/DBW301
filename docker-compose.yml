@@ -1,0 +1,28 @@
+version: '3.3'
+services:
+  app:
+    container_name: DBW301
+    build:
+      context: .
+    env_file:
+      - .env
+    volumes:
+      - ./:/DBW301
+      - ./var/log:/var/log
+    ports:
+      - "$APP_PORT:5000"
+  mysql:
+    image: 'mysql:5.6'
+    command: --character-set-server=utf8mb4 --collation-server=utf8mb4_general_ci --default-authentication-plugin=mysql_native_password --default-time-zone=${TIMEZONE} --explicit_defaults_for_timestamp
+    environment:
+      - MYSQL_ROOT_PASSWORD=${MYSQL_ROOT_PASSWORD}
+      - MYSQL_DATABASE=${MYSQL_DATABASE}
+      - MYSQL_USER=${MYSQL_USERNAME}
+      - MYSQL_PASSWORD=${MYSQL_PASSWORD}
+    ports:
+      - '${MYSQL_FORWARD_PORT}:3306'
+    restart: always
+    volumes:
+      - ./data/mysql:/var/lib/mysql
+      - ./mysql-entrypoint.sh:/mysql-entrypoint.sh
+    entrypoint: ["./mysql-entrypoint.sh", "test"]
